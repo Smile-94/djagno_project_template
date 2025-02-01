@@ -1,0 +1,70 @@
+[tool.poetry]
+name = "\"django template\""
+version = "1.0.0.0"
+description = "\"This a comprehencive djagno template\""
+authors = ["Sazzad Hossen <mshossen75@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.1.0"
+
+[tool.poe.tasks]
+dev = "python manage.py runserver 0.0.0.0:8000"
+migrations = "python manage.py makemigrations"
+migrate = "python manage.py migrate"
+app = "python manage.py startapp"
+project = "django-admin startproject"
+
+[tool.poetry.dependencies]
+poethepoet = "^0.32.2"
+
+# PYTHON DEPENDENCIES
+python = "^3.12"
+
+# DJANGO DEPENDENCIES
+django = "^5.1.5"
+pillow = "^11.1.0"
+django-cors-headers = "^4.6.0"
+django-phonenumber-field = "^8.0.0"
+django-admin-rangefilter = "^0.13.2"
+
+# PYDANTIC DEPENDENCIES
+pydantic = "^2.10.6"
+pydantic-settings = "^2.7.1"
+pydantic-extra-types = "^2.10.2"
+
+# LOGGING DEPENDENCIES
+loguru = "^0.7.3"
+
+#REST DEPENDENCIES
+djangorestframework = "^3.15.2"
+markdown = "^3.7"
+django-filter = "^24.3"
+
+# DEVELOPMENT DEPENDENCIES
+ruff = "^0.9.4"
+pre-commit = "^4.1.0"
+black = "^25.1.0"
+django-debug-toolbar = "^5.0.1"
+
+# API DOCUMENTATION DEPENDENCIES
+drf-spectacular = "^0.28.0"
+
+# SERVER DEPENDENCIES
+uvicorn = "^0.34.0"
+granian = "^1.7.6"
+
+# CACHE DEPENDENCIES
+redis = "^5.2.1"
+
+# OTHER
+psycopg = "^3.2.4"
+pyseto = "^1.8.2"
+whitenoise = "^6.8.2"
+phonenumbers = "^8.13.54"
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
