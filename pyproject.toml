@@ -68,3 +68,49 @@ phonenumbers = "^8.13.54"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+# Ruff Configuration File
+
+[tool.ruff]
+# Target Python version
+target-version = "py313"
+
+# Maximum line length before wrapping
+line-length = 150
+
+# Automatically fix issues where possible
+fix = true
+
+# Enable specific linting rules
+lint.select = [
+    "F",  # Pyflakes - Detects undefined names, unused imports, etc.
+    "E",  # pycodestyle - Enforces PEP 8 style errors
+    "W",  # Warning - Detects stylistic issues
+    "C",  # Complexity (mccabe+) & comprehensions - Detects overly complex functions and inefficient comprehensions
+    "UP", # pyupgrade - Suggests modern Python syntax improvements
+    "I",  # isort - Ensures proper import sorting
+]
+
+# Ignore specific linting rules
+lint.ignore = [
+    "E402",  # Ignore module-level import not at the top of the file
+    "UP006", # Ignore PEP 585 annotation enforcement
+    "UP007", # Ignore PEP 604 annotation enforcement
+    "E741",  # Ignore ambiguous variable names like 'l', 'O', etc.
+    # "UP035", # (Optional) Ignore deprecated assertion usage
+]
+
+# Per-file specific linting ignores
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "F401", # Ignore unused imports in __init__.py files
+    "F403", # Ignore star imports in __init__.py files
+]
+
+# McCabe complexity threshold (higher means allowing more complexity in functions)
+[tool.ruff.lint.mccabe]
+max-complexity = 1000  # Allow functions with high complexity (adjust if needed)
+
+# Pydocstyle settings (Enforces docstring conventions)
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"  # Follow NumPy-style docstrings for consistency
