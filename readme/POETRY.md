@@ -25,6 +25,14 @@ Installation Guide and Django Dependency Management
   - [6.4 Poetry Show Installed Package](#64-poetry-show-installed-package)
   - [6.6 Poetry Run Command](#66-poetry-run-command)
   - [6.7 Poetry Shell Command](#67-poetry-shell-command)
+  - [6.8 Poetry Export](#68-poetry-export)
+- 7 [Poetry Self](#7-poetry-self)
+  - [7.1 Poetry Self Update](#71-poetry-self-update)
+  - [7.2 Poetry Self Add](#72-poetry-self-add)
+  - [7.3 Poetry Self Remove](#73-poetry-self-remove)
+  - [7.4 Poetry Self Show](#74-poetry-self-show)
+  - [7.5 poetry self lock](#75-poetry-self-lock)
+  - [7.6 Poetry Self Install](#76-poetry-self-install)
 
 ## 1 Poetry
 
@@ -546,4 +554,112 @@ If you want to export the dependencies without including hashes:
 
 ```zsh
 poetry export -f requirements.txt --output requirements.txt --without-hashes
+```
+
+## 7 Poetry Self
+
+The `poetry self` command is used to manage the Poetry installation itself. It provides subcommands to update Poetry, manage its dependencies, and interact with its internal configuration. Below is a detailed documentation of the poetry self command and its subcommands.
+
+```zsh
+poetry self [options] <command>
+```
+
+### 7.1 Poetry Self Update
+
+`poetry self update` Updates Poetry to the latest version.
+
+```zsh
+poetry self update [options]
+```
+
+Update Poetry to the latest stable version:
+
+```zsh
+poetry self update
+```
+
+Update Poetry to a specific version:
+
+```zsh
+poetry self update --version 1.2.0
+```
+
+poetry self update --preview
+
+```zsh
+poetry self update --preview
+```
+
+### 7.2 Poetry Self Add
+
+Adds a dependency to Poetry's own environment. This is useful for extending Poetry with plugins or additional tools.
+
+```zsh
+poetry self add <package> [options]
+```
+
+**options:**
+
+`--editable`: Install the package in editable mode.
+
+`--extras` <extras>: Install additional features of the package.
+
+`--source` <source>: Specify a custom source for the package.
+
+Add a package to Poetry's environment:
+
+```zsh
+poetry self add black
+```
+
+Add a package in editable mode:
+
+```zsh
+poetry self add --editable ./my-plugin
+```
+
+### 7.3 Poetry Self Remove
+
+Removes a dependency from Poetry's environment.
+
+```zsg
+poetry self remove <package> | poetry self remove black
+```
+
+### 7.4 Poetry Self Show
+
+Displays information about Poetry's environment, including installed packages and their versions.
+
+```zsh
+poetry self show [options] | poetry self show | poetry self show --tree
+```
+
+`--tree`: Display dependencies as a tree.
+
+`--latest`: Show the latest version of each package.
+
+`--outdated`: Show only outdated packages.
+
+### 7.5 poetry self lock
+
+Creates a poetry.lock file for Poetry's own dependencies. This is useful for ensuring reproducibility when extending Poetry with plugins.
+
+```zsh
+poetry self lock
+```
+
+### 7.6 Poetry Self Install
+
+Installs Poetry's dependencies based on the poetry.lock file.
+
+Install Poetry's dependencies:
+
+```zsh
+Install Poetry's dependencies:
+```
+
+Synchronize Poetry's environment:
+
+```zsh
+poetry self install --sync
 ```
