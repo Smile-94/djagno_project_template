@@ -14,6 +14,9 @@ migrations = "python manage.py makemigrations"
 migrate = "python manage.py migrate"
 app = "python manage.py startapp"
 project = "django-admin startproject"
+# Run a shell command
+clean = "rm -rf .pytest_cache __pycache__"
+collectstatic = "python manage.py collectstatic --noinput"
 
 [tool.poetry.dependencies]
 poethepoet = "^0.32.2"
