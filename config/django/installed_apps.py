@@ -16,6 +16,7 @@ class InstalledAppsSettings(BaseSettings):
 
     LOCAL_APPS: list[str] = [
         "apps.user.apps.UserConfig",
+        "apps.common.apps.CommonConfig",
     ]
 
     INSTALLED_APPS: list[str] = [
