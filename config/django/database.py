@@ -21,24 +21,23 @@ class DatabaseSettings(BaseSettings):
     # General Database Configuration
     DEFAULT_AUTO_FIELD: str = "django.db.models.BigAutoField"
 
-    # PostgreSQL Database Configuration
-    POSTGRES_HOST: SecretStr = Field(default="localhost", frozen=True, repr=False)
-    POSTGRES_PORT: int = Field(default=5432, frozen=True, repr=False)
-    POSTGRES_DB: SecretStr = Field(default="postgres", frozen=True, repr=False)
-    POSTGRES_USER: SecretStr = Field(default="postgres", frozen=True, repr=False)
-    POSTGRES_PASSWORD: SecretStr = Field(default="postgres", frozen=True, repr=False)
-    ATOMIC_DB: bool = Field(default=True, frozen=True, repr=False)
-
     # Redis Configuration
     REDIS_HOST: SecretStr = Field(default="localhost", frozen=True, repr=False)
     REDIS_PORT: int = Field(default=6379, frozen=True, repr=False)
 
     # Data base choices
     DATABASE_CHOICES: str = Field(
-        default=DatabaseChoices.SQLITE,
-        frozen=True,
-        repr=False,
+        default=DatabaseChoices.SQLITE, frozen=True, repr=False
     )
+
+    # Database Configuration
+    DATABASE_HOST: SecretStr = Field(default="localhost", frozen=True, repr=False)
+    DATABASE_PORT: int = Field(default=5432, frozen=True, repr=False)
+    DATABASE_NAME: SecretStr = Field(default="postgres", frozen=True, repr=False)
+    DATABASE_USER: SecretStr = Field(default="postgres", frozen=True, repr=False)
+    DATABASE_PASSWORD: SecretStr = Field(default="postgres", frozen=True, repr=False)
+
+    ATOMIC_DB: bool = Field(default=True, frozen=True, repr=False)
 
     model_config = SettingsConfigDict(
         env_file=env_config.env_file,
@@ -56,17 +55,26 @@ class DatabaseSettings(BaseSettings):
                 }
             }
         elif self.DATABASE_CHOICES == "mysql":
-            # TODO: Implement MySQL database configuration
-            pass
+            return {
+                "default": {
+                    "ENGINE": "django.db.backends.mysql",
+                    "NAME": self.DATABASE_NAME.get_secret_value(),  # Database name
+                    "USER": self.DATABASE_NAME.get_secret_value(),  # MySQL username
+                    "PASSWORD": self.DATABASE_PASSWORD.get_secret_value(),  # MySQL password
+                    "HOST": self.DATABASE_HOST.get_secret_value(),  # Database host (use 'localhost' for local development)
+                    "PORT": self.DATABASE_PORT,  # Database port (default is 3306)
+                }
+            }
+
         elif self.DATABASE_CHOICES == "postgres":
             return {
                 "default": {
                     "ENGINE": "django.db.backends.postgresql",
-                    "NAME": self.POSTGRES_DB.get_secret_value(),
-                    "USER": self.POSTGRES_USER.get_secret_value(),
-                    "PASSWORD": self.POSTGRES_PASSWORD.get_secret_value(),
-                    "HOST": self.POSTGRES_HOST.get_secret_value(),
-                    "PORT": self.POSTGRES_PORT,
+                    "NAME": self.DATABASE_NAME.get_secret_value(),
+                    "USER": self.DATABASE_NAME.get_secret_value(),
+                    "PASSWORD": self.DATABASE_PASSWORD.get_secret_value(),
+                    "HOST": self.DATABASE_HOST.get_secret_value(),
+                    "PORT": self.DATABASE_PORT,
                 },
             }
 
